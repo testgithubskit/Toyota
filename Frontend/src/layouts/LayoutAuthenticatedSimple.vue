@@ -50,7 +50,7 @@ const dashboardButton = computed(() => {
   } else {
     return {
       text: "Open Dashboard",
-      link: "https://localhost:5173/tiei_dynamic/"
+      link: "https://172.18.100.99:5173/tiei_dynamic/"
     };
   }
 });

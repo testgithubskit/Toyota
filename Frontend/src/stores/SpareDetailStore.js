@@ -8,7 +8,7 @@ export const useSparePartStore = defineStore('sparePartStore', {
     alertMessage: '',
     isSuccessMessage: false,
     cumulativeCount: 3333,
-    currentCount : 4040,
+    currentCount: 4040,
     spareParts: [
       {
         id: 0,
@@ -35,7 +35,7 @@ export const useSparePartStore = defineStore('sparePartStore', {
           this.currentCount = data.current_count;
           this.cumulativeCount = data.total_count
           console.log(this.currentCount)
-          
+
         } else {
           this.spareParts = [
             {
@@ -87,7 +87,7 @@ export const useSparePartStore = defineStore('sparePartStore', {
         setTimeout(() => {
           this.alertMessage = '';
         }, 5000);
-      
+
       }
     },
 
@@ -121,14 +121,14 @@ export const useSparePartStore = defineStore('sparePartStore', {
       }
     },
 
-    
+
 
 
     async deleteSparePart(deletedPart) {
       // Implement your logic to delete the spare part
       console.log('Deleting spare part:', deletedPart);
 
-      const url = `http://localhost:7788/delete/${deletedPart.id}`;
+      const url = `http://172.18.100.99:7788/delete/${deletedPart.id}`;
       try {
         // Send a delete request to the backend
         const response = await backendApi.delete(url);

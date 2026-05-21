@@ -4,31 +4,31 @@
       <!-- Container for the two cards -->
       <div class="flex flex-1 gap-3 w-full h-full min-h-0">
         
-        <!-- ================= LEFT CARD (25% Width) ================= -->
-        <div class="w-1/4 h-full bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col overflow-hidden">
+        <!-- ================= LEFT CARD (28% Width) ================= -->
+        <div class="w-[28%] h-full bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col overflow-hidden">
           
           <!-- ── Metrics Header ── -->
-          <div class="px-3 py-3 border-b border-slate-100 dark:border-slate-700/60 flex-shrink-0">
-            <div class="flex items-center justify-between mb-2">
-              <h2 class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Factory Overview</h2>
+          <div class="px-4 py-3.5 border-b border-slate-150 dark:border-slate-700/60 flex-shrink-0">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-xs md:text-sm font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">Factory Overview</h2>
             </div>
             <!-- Summary metric chips -->
-            <div class="grid grid-cols-4 gap-1.5">
-              <div class="rounded-md px-2 py-1.5 text-center" style="background: #f1f5f9;">
-                <div class="text-[15px] font-extrabold text-slate-700 dark:text-slate-200 leading-none">{{ totalMachines }}</div>
-                <div class="text-[8px] font-semibold uppercase tracking-wider text-slate-400 mt-0.5">Total</div>
+            <div class="grid grid-cols-4 gap-2">
+              <div class="rounded-lg px-2 py-2.5 text-center shadow-sm border border-slate-200/40 dark:border-slate-700/40" style="background: #f8fafc;">
+                <div class="text-[18px] md:text-xl font-black text-slate-700 dark:text-slate-200 leading-none mb-0.5">{{ totalMachines }}</div>
+                <div class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-slate-400">Total</div>
               </div>
-              <div class="rounded-md px-2 py-1.5 text-center" :style="{ background: CONFIG.statusColors.OK.bg }">
-                <div class="text-[15px] font-extrabold leading-none" :style="{ color: CONFIG.statusColors.OK.text }">{{ totalOk }}</div>
-                <div class="text-[8px] font-semibold uppercase tracking-wider mt-0.5" :style="{ color: CONFIG.statusColors.OK.text, opacity: 0.7 }">OK</div>
+              <div class="rounded-lg px-2 py-2.5 text-center shadow-sm border border-slate-200/40 dark:border-slate-700/40" :style="{ background: CONFIG.statusColors.OK.bg }">
+                <div class="text-[18px] md:text-xl font-black leading-none mb-0.5" :style="{ color: CONFIG.statusColors.OK.text }">{{ totalOk }}</div>
+                <div class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider" :style="{ color: CONFIG.statusColors.OK.text, opacity: 0.8 }">OK</div>
               </div>
-              <div class="rounded-md px-2 py-1.5 text-center" :style="{ background: CONFIG.statusColors.WARNING.bg }">
-                <div class="text-[15px] font-extrabold leading-none" :style="{ color: CONFIG.statusColors.WARNING.text }">{{ totalWarning }}</div>
-                <div class="text-[8px] font-semibold uppercase tracking-wider mt-0.5" :style="{ color: CONFIG.statusColors.WARNING.text, opacity: 0.7 }">Warn</div>
+              <div class="rounded-lg px-2 py-2.5 text-center shadow-sm border border-slate-200/40 dark:border-slate-700/40" :style="{ background: CONFIG.statusColors.WARNING.bg }">
+                <div class="text-[18px] md:text-xl font-black leading-none mb-0.5" :style="{ color: CONFIG.statusColors.WARNING.text }">{{ totalWarning }}</div>
+                <div class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider" :style="{ color: CONFIG.statusColors.WARNING.text, opacity: 0.8 }">Warn</div>
               </div>
-              <div class="rounded-md px-2 py-1.5 text-center" :style="{ background: CONFIG.statusColors.CRITICAL.bg }">
-                <div class="text-[15px] font-extrabold leading-none" :style="{ color: CONFIG.statusColors.CRITICAL.text }">{{ totalCritical }}</div>
-                <div class="text-[8px] font-semibold uppercase tracking-wider mt-0.5" :style="{ color: CONFIG.statusColors.CRITICAL.text, opacity: 0.7 }">Crit</div>
+              <div class="rounded-lg px-2 py-2.5 text-center shadow-sm border border-slate-200/40 dark:border-slate-700/40" :style="{ background: CONFIG.statusColors.CRITICAL.bg }">
+                <div class="text-[18px] md:text-xl font-black leading-none mb-0.5" :style="{ color: CONFIG.statusColors.CRITICAL.text }">{{ totalCritical }}</div>
+                <div class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider" :style="{ color: CONFIG.statusColors.CRITICAL.text, opacity: 0.8 }">Crit</div>
               </div>
             </div>
           </div>
@@ -36,91 +36,98 @@
           <!-- ── Scrollable Alert Feed ── -->
           <div class="flex-1 overflow-y-auto">
             <!-- Each production line section (always visible, no accordion) -->
-            <div v-for="line in uiLinesData" :key="line.name" class="border-b border-slate-50 dark:border-slate-700/30 last:border-0">
+            <div v-for="line in uiLinesData" :key="line.name" class="border-b border-slate-100 dark:border-slate-700/30 last:border-0">
               
               <!-- Line Header -->
-              <div class="px-3 py-2 flex items-center justify-between bg-slate-25 dark:bg-slate-750/30 sticky top-0 z-[1]"
-                   :class="{ 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750': true }"
+              <div class="px-4 py-3 flex items-center justify-between sticky top-0 z-[1] border-b border-slate-200/60 dark:border-slate-700/50 backdrop-blur-md shadow-sm transition-colors"
+                   :class="[getLineAccentClass(line.name), { 'cursor-pointer hover:bg-slate-100/60 dark:hover:bg-slate-800/60': true }]"
                    @click="focusLine(line.name)">
-                <div class="flex items-center gap-2 min-w-0">
-                  <span class="text-[10px] font-extrabold tracking-wide text-slate-700 dark:text-slate-200">{{ line.name }}</span>
-                  <span class="text-[9px] text-slate-400 dark:text-slate-500 font-medium">({{ (line.machines || []).length }})</span>
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <span class="text-xs md:text-sm font-black tracking-wider text-slate-850 dark:text-slate-100 uppercase">{{ line.name }}</span>
+                  <span class="text-[10px] md:text-xs text-slate-400 dark:text-slate-500 font-bold bg-slate-200/50 dark:bg-slate-700/60 px-2 py-0.5 rounded-md">
+                    {{ (line.machines || []).length }} Machines
+                  </span>
                 </div>
-                <div class="flex items-center gap-1 flex-shrink-0">
-                  <span v-if="line.counts.CRITICAL > 0" class="inline-flex items-center gap-0.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full" 
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                  <span v-if="line.counts.CRITICAL > 0" class="inline-flex items-center gap-1 text-[10px] md:text-xs font-black px-2 py-0.5 rounded-full shadow-sm" 
                         :style="{ background: CONFIG.statusColors.CRITICAL.bg, color: CONFIG.statusColors.CRITICAL.text, border: `1px solid ${CONFIG.statusColors.CRITICAL.border}` }">
-                    <span class="w-1.5 h-1.5 rounded-full" :style="{ background: CONFIG.statusColors.CRITICAL.dot }"></span>
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 animate-ping absolute" :style="{ background: CONFIG.statusColors.CRITICAL.dot }"></span>
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 relative" :style="{ background: CONFIG.statusColors.CRITICAL.dot }"></span>
                     {{ line.counts.CRITICAL }}
                   </span>
-                  <span v-if="line.counts.WARNING > 0" class="inline-flex items-center gap-0.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full" 
+                  <span v-if="line.counts.WARNING > 0" class="inline-flex items-center gap-1 text-[10px] md:text-xs font-black px-2 py-0.5 rounded-full shadow-sm" 
                         :style="{ background: CONFIG.statusColors.WARNING.bg, color: CONFIG.statusColors.WARNING.text, border: `1px solid ${CONFIG.statusColors.WARNING.border}` }">
-                    <span class="w-1.5 h-1.5 rounded-full" :style="{ background: CONFIG.statusColors.WARNING.dot }"></span>
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" :style="{ background: CONFIG.statusColors.WARNING.dot }"></span>
                     {{ line.counts.WARNING }}
                   </span>
                 </div>
               </div>
 
               <!-- Alert machines for this line (CRITICAL first, then WARNING) -->
-              <div v-for="machine in getLineAlertMachines(line)" :key="machine.machine_name"
-                   @click="showMachineDetails(machine)"
-                   class="mx-2 mb-1 px-2.5 py-2 rounded-md cursor-pointer transition-all duration-150 hover:shadow-sm"
-                   :style="{ 
-                     background: CONFIG.statusColors[machine.machine_state]?.bg, 
-                     border: `1px solid ${CONFIG.statusColors[machine.machine_state]?.border || '#e2e8f0'}`
-                   }">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-1.5 min-w-0">
-                    <span class="w-2 h-2 rounded-full flex-shrink-0" :style="{ background: CONFIG.statusColors[machine.machine_state]?.dot }"></span>
-                    <span class="text-[10px] font-bold truncate" :style="{ color: CONFIG.statusColors[machine.machine_state]?.text }">{{ machine.machine_name }}</span>
+              <div class="px-2 py-2 space-y-2.5">
+                <div v-for="machine in getLineAlertMachines(line)" :key="machine.machine_name"
+                     @click="showMachineDetails(machine)"
+                     class="mx-1 px-3.5 py-3 rounded-lg cursor-pointer transition-all duration-150 hover:shadow-md hover:-translate-y-0.5 border shadow-sm"
+                     :style="{ 
+                       background: CONFIG.statusColors[machine.machine_state]?.bg, 
+                       borderColor: CONFIG.statusColors[machine.machine_state]?.border || '#e2e8f0'
+                     }">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <div class="flex items-center gap-2 min-w-0">
+                      <span class="w-2.5 h-2.5 rounded-full flex-shrink-0 animate-pulse" :style="{ background: CONFIG.statusColors[machine.machine_state]?.dot }"></span>
+                      <span class="text-xs md:text-sm font-black truncate" :style="{ color: CONFIG.statusColors[machine.machine_state]?.text }">{{ machine.machine_name }}</span>
+                    </div>
+                    <span class="text-[9px] md:text-[10px] font-black uppercase tracking-wider flex-shrink-0 px-2 py-0.5 rounded-md border"
+                          :style="{ color: CONFIG.statusColors[machine.machine_state]?.text, background: CONFIG.statusColors[machine.machine_state]?.bg, borderColor: CONFIG.statusColors[machine.machine_state]?.border }">
+                      {{ machine.machine_state }}
+                    </span>
                   </div>
-                  <span class="text-[8px] font-extrabold uppercase tracking-wider flex-shrink-0 px-1.5 py-0.5 rounded"
-                        :style="{ color: CONFIG.statusColors[machine.machine_state]?.text, background: CONFIG.statusColors[machine.machine_state]?.border }">
-                    {{ machine.machine_state }}
-                  </span>
-                </div>
-                <!-- Abnormal parameters inline -->
-                <div v-for="param in getAbnormalParameters(machine)" :key="param.actual_parameter_name" class="mt-1 ml-3.5 flex items-center justify-between">
-                  <span class="text-[9px] text-slate-600 dark:text-slate-400 truncate">{{ param.actual_parameter_name }}</span>
-                  <span class="text-[9px] font-bold font-mono ml-2 flex-shrink-0" :style="{ color: CONFIG.statusColors[param.parameter_state]?.text || CONFIG.statusColors[machine.machine_state]?.text }">
-                    {{ param.parameter_value !== null ? param.parameter_value : 'N/A' }}
-                  </span>
+                  <!-- Abnormal parameters inline -->
+                  <div class="space-y-1.5 mt-2 pt-2 border-t border-dashed" :style="{ borderColor: CONFIG.statusColors[machine.machine_state]?.border }">
+                    <div v-for="param in getAbnormalParameters(machine)" :key="param.actual_parameter_name" class="ml-1.5 flex items-center justify-between">
+                      <span class="text-[10px] md:text-xs text-slate-700 dark:text-slate-355 font-bold truncate flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 flex-shrink-0"></span>
+                        {{ param.actual_parameter_name }}
+                      </span>
+                      <span class="text-[10px] md:text-xs font-black font-mono ml-2 flex-shrink-0 px-1.5 py-0.5 rounded animate-pulse" :style="{ color: CONFIG.statusColors[param.parameter_state]?.text || CONFIG.statusColors[machine.machine_state]?.text, background: CONFIG.statusColors[param.parameter_state]?.bg || 'rgba(0,0,0,0.03)' }">
+                        {{ param.parameter_value !== null ? param.parameter_value : 'N/A' }}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ================= RIGHT CARD (75% Width - Isometric SVG) ================= -->
-        <div class="w-3/4 h-full bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col overflow-hidden relative">
+        <!-- ================= RIGHT CARD (72% Width - Isometric SVG) ================= -->
+        <div class="w-[72%] h-full bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col overflow-hidden relative">
           
           <div class="w-full h-full relative p-4 flex items-center justify-center bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
             
-            <!-- Shimmer Loading Overlay -->
-            <div v-if="isLoading" class="absolute inset-0 z-20 flex items-center justify-center bg-slate-50 dark:bg-slate-900">
-              <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet" class="w-full h-full">
-                <defs>
-                  <linearGradient id="shimmer" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="rgba(148,163,184,0.06)"/>
-                    <stop offset="50%" stop-color="rgba(148,163,184,0.15)"/>
-                    <stop offset="100%" stop-color="rgba(148,163,184,0.06)"/>
-                    <animateTransform attributeName="gradientTransform" type="translate" from="-1 0" to="2 0" dur="1.5s" repeatCount="indefinite"/>
-                  </linearGradient>
-                </defs>
-                <!-- Shimmer placeholder blocks -->
-                <rect v-for="i in 12" :key="'shim-'+i" 
-                      :x="300 + ((i-1) % 4) * 160" 
-                      :y="200 + Math.floor((i-1) / 4) * 140" 
-                      width="120" height="100" rx="8" 
-                      fill="url(#shimmer)"/>
-                <text x="600" y="680" text-anchor="middle" fill="rgba(148,163,184,0.4)" font-size="14" font-weight="600" :font-family="CONFIG.fontFamily">
-                  Loading factory data...
-                </text>
-              </svg>
+            <!-- Glassmorphic Loading HUD overlaying the active machine layout -->
+            <div v-if="isLoading" class="absolute inset-0 bg-slate-900/10 dark:bg-slate-950/20 backdrop-blur-[1px] flex items-center justify-center z-20 pointer-events-none">
+              <div class="flex items-center gap-3 px-5 py-3 rounded-xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 shadow-lg pointer-events-auto">
+                <svg class="animate-spin h-5 w-5 text-indigo-600 dark:text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span class="text-sm font-bold text-slate-700 dark:text-slate-200 tracking-wide">
+                  Loading Live Factory Layout...
+                </span>
+              </div>
             </div>
 
             <!-- Isometric SVG Stage -->
-            <svg ref="svgRef" :viewBox="computedViewBox" @wheel.prevent="handleWheel" @mousedown="handleMouseDown" @mousemove="handleMouseMove" @mouseup="handleMouseUp" @mouseleave="handleMouseLeave" preserveAspectRatio="xMidYMid meet" class="w-full h-full select-none outline-none" :class="{ 'opacity-0': isLoading }">
+            <svg ref="svgRef" :viewBox="computedViewBox" @wheel.prevent="handleWheel" @mousedown="handleMouseDown" @mousemove="handleMouseMove" @mouseup="handleMouseUp" @mouseleave="handleMouseLeave" preserveAspectRatio="xMidYMid meet" class="w-full h-full select-none outline-none">
               
+              <defs>
+                <filter id="base-glow-filter" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+                </filter>
+              </defs>
+
               <!-- 1. BACKDROP GRID -->
               <g :stroke="CONFIG.gridLineColor" :stroke-width="CONFIG.gridLineWidth" fill="none">
                 <line v-for="u in gridUValues" :key="'grid-u-' + u"
@@ -131,56 +138,137 @@
                   :x2="isoToScreen(CONFIG.gridMax, v).x" :y2="isoToScreen(CONFIG.gridMax, v).y"/>
               </g>
 
+              <!-- 1.5. ISOMETRIC LINE LABELS (flat on floor, parallel to U-axis) -->
+              <g v-for="label in lineLabels" :key="label.name">
+                <!-- Slanted Black Background Box (runs parallel to U-axis, styled dynamically via config) -->
+                <polygon v-if="label.box"
+                  :points="`
+                    ${isoToScreen(label.u - label.halfWidth, label.v - label.halfHeight).x},${isoToScreen(label.u - label.halfWidth, label.v - label.halfHeight).y}
+                    ${isoToScreen(label.u + label.halfWidth, label.v - label.halfHeight).x},${isoToScreen(label.u + label.halfWidth, label.v - label.halfHeight).y}
+                    ${isoToScreen(label.u + label.halfWidth, label.v + label.halfHeight).x},${isoToScreen(label.u + label.halfWidth, label.v + label.halfHeight).y}
+                    ${isoToScreen(label.u - label.halfWidth, label.v + label.halfHeight).x},${isoToScreen(label.u - label.halfWidth, label.v + label.halfHeight).y}
+                  `"
+                  :fill="label.bgColor"
+                  :stroke="label.borderColor"
+                  :stroke-width="label.borderWidth"
+                />
+                <!-- Slanted White Text (rotated flat along U-axis, styled dynamically via config) -->
+                <text 
+                  :transform="`matrix(0.7, 0.35, -0.7, 0.35, ${isoToScreen(label.u - label.halfWidth + label.textPadding, label.v).x}, ${isoToScreen(label.u - label.halfWidth + label.textPadding, label.v).y})`"
+                  text-anchor="start"
+                  dominant-baseline="central"
+                  :fill="label.textColor"
+                  :font-size="label.fontSize"
+                  :font-weight="label.fontWeight"
+                  :letter-spacing="label.letterSpacing"
+                  :font-family="CONFIG.fontFamily"
+                >{{ label.name }}</text>
+              </g>
+
               <!-- 2. MACHINE IMAGES + TOOLTIPS (depth-sorted) -->
-              <g v-for="machine in sortedPlacedMachines" :key="machine.machine_name">
+              <g v-for="machine in sortedPlacedMachines" :key="machine.machine_name"
+                 :style="{ 
+                   cursor: isLoading ? 'default' : 'pointer'
+                 }"
+                 :opacity="activeLine && activeLine !== machine.lineName ? 0.25 : 1.0"
+                 @mouseenter="!isLoading && (hoveredMachine = machine.machine_name)"
+                 @mouseleave="hoveredMachine = null"
+                 @click.stop="!isLoading && showMachineDetails(machine)">
                 
-                <!-- Machine Image -->
-                <image 
-                  :href="machineSvg"
-                  :x="getMachineX(machine)"
-                  :y="getMachineY(machine)"
-                  :width="CONFIG.machineWidth"
-                  :height="CONFIG.machineHeight"
+                <!-- ── 3D ISOMETRIC PLATFORM (BASE) ── -->
+                <!-- Base Glow Shadow (Rhombus) -->
+                <polygon v-if="!isLoading && getPlatformColors(machine.machine_state).hasGlow"
+                         :points="`
+                           ${getMachineX(machine) + CONFIG.machineWidth/2 - rx - 4},${getMachineY(machine) + anchorY + h + 1}
+                           ${getMachineX(machine) + CONFIG.machineWidth/2},${getMachineY(machine) + anchorY + h + ry + 2 + 1}
+                           ${getMachineX(machine) + CONFIG.machineWidth/2 + rx + 4},${getMachineY(machine) + anchorY + h + 1}
+                           ${getMachineX(machine) + CONFIG.machineWidth/2},${getMachineY(machine) + anchorY + h - ry - 2 + 1}
+                         `"
+                         :fill="getPlatformColors(machine.machine_state).glow" 
+                         opacity="0.65" 
+                         filter="url(#base-glow-filter)" />
+
+                <!-- Base 3D Left Side Wall -->
+                <path v-if="!isLoading"
+                      :d="`M ${getMachineX(machine) + CONFIG.machineWidth/2 - rx} ${getMachineY(machine) + anchorY}
+                           L ${getMachineX(machine) + CONFIG.machineWidth/2} ${getMachineY(machine) + anchorY + ry}
+                           L ${getMachineX(machine) + CONFIG.machineWidth/2} ${getMachineY(machine) + anchorY + ry + h}
+                           L ${getMachineX(machine) + CONFIG.machineWidth/2 - rx} ${getMachineY(machine) + anchorY + h}
+                           Z`"
+                      :fill="getPlatformColors(machine.machine_state).sideLeft"
+                      :stroke="getPlatformColors(machine.machine_state).stroke"
+                      stroke-width="0.8" />
+
+                <!-- Base 3D Right Side Wall -->
+                <path v-if="!isLoading"
+                      :d="`M ${getMachineX(machine) + CONFIG.machineWidth/2} ${getMachineY(machine) + anchorY + ry}
+                           L ${getMachineX(machine) + CONFIG.machineWidth/2 + rx} ${getMachineY(machine) + anchorY}
+                           L ${getMachineX(machine) + CONFIG.machineWidth/2 + rx} ${getMachineY(machine) + anchorY + h}
+                           L ${getMachineX(machine) + CONFIG.machineWidth/2} ${getMachineY(machine) + anchorY + ry + h}
+                           Z`"
+                      :fill="getPlatformColors(machine.machine_state).sideRight"
+                      :stroke="getPlatformColors(machine.machine_state).stroke"
+                      stroke-width="0.8" />
+
+                <!-- Base Top Face (Rhombus) -->
+                <polygon v-if="!isLoading"
+                         :points="`
+                           ${getMachineX(machine) + CONFIG.machineWidth/2 - rx},${getMachineY(machine) + anchorY}
+                           ${getMachineX(machine) + CONFIG.machineWidth/2},${getMachineY(machine) + anchorY - ry}
+                           ${getMachineX(machine) + CONFIG.machineWidth/2 + rx},${getMachineY(machine) + anchorY}
+                           ${getMachineX(machine) + CONFIG.machineWidth/2},${getMachineY(machine) + anchorY + ry}
+                         `"
+                         :fill="getPlatformColors(machine.machine_state).top"
+                         :stroke="getPlatformColors(machine.machine_state).stroke"
+                         stroke-width="0.8" />
+
+                <!-- Nested Group for Machine + Tooltip scaling together on hover -->
+                <g
                   :style="{ 
-                    filter: CONFIG.useFilters ? (CONFIG.stateFilters[machine.machine_state] || '') : 'none',
-                    cursor: 'pointer',
-                    transformOrigin: `${getMachineX(machine) + CONFIG.machineWidth/2}px ${getMachineY(machine) + CONFIG.machineHeight}px`,
-                    transform: hoveredMachine === machine.machine_name ? `scale(${CONFIG.hoverScale || 1.15})` : 'scale(1)',
+                    transformOrigin: `${getMachineX(machine) + CONFIG.machineWidth/2}px ${getMachineY(machine) + anchorY}px`,
+                    transform: (!isLoading && hoveredMachine === machine.machine_name) ? `scale(${CONFIG.hoverScale || 1.15})` : 'scale(1)',
                     transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)'
                   }"
-                  :opacity="activeLine && activeLine !== machine.lineName ? 0.25 : 1.0"
-                  @mouseenter="hoveredMachine = machine.machine_name"
-                  @mouseleave="hoveredMachine = null"
-                  @click.stop="showMachineDetails(machine)"
-                />
+                >
+                  <!-- Machine Image (sitting on platform) -->
+                  <image 
+                    :href="machineSvg"
+                    :x="getMachineX(machine)"
+                    :y="getMachineY(machine)"
+                    :width="CONFIG.machineWidth"
+                    :height="CONFIG.machineHeight"
+                    :class="{ 'loading-machine': isLoading }"
+                    :style="{ 
+                      filter: isLoading ? 'grayscale(0.5) contrast(0.9)' : (CONFIG.useFilters ? (getMachineFilter(machine.machine_state) || '') : 'none')
+                    }"
+                  />
 
-                <!-- ── TOOLTIP (persistent for WARNING/CRITICAL, hover for others) ── -->
-                <g v-if="shouldShowTooltip(machine)"
-                   :style="{ 
-                     transformOrigin: `${getMachineX(machine) + CONFIG.machineWidth/2}px ${getMachineY(machine) + CONFIG.machineHeight}px`,
-                     transform: hoveredMachine === machine.machine_name ? `scale(${CONFIG.hoverScale || 1.15})` : 'scale(1)',
-                     transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)'
-                   }">
-                  <!-- Tooltip body + triangle arrow -->
-                  <path :d="getTooltipPath(machine)" 
-                        :fill="getTooltipBg(machine)" 
-                        :stroke="getTooltipStroke(machine)" 
-                        stroke-width="0.6" 
-                        opacity="0.96"/>
-                  <!-- Tooltip text -->
-                  <text 
-                    :x="getMachineX(machine) + CONFIG.machineWidth/2"
-                    :y="getMachineY(machine) - CONFIG.tooltipOffsetY + CONFIG.tooltipPaddingY + CONFIG.tooltipFontSize * 0.8"
-                    text-anchor="middle"
-                    :fill="getTooltipTextColor(machine)"
-                    :font-size="CONFIG.tooltipFontSize"
-                    font-weight="700"
-                    :font-family="CONFIG.fontFamily"
-                  >{{ machine.machine_name }}</text>
+                  <!-- ── HIGH-CONTRAST TOOLTIP LABEL ── -->
+                  <g v-if="shouldShowTooltip(machine)">
+                    <!-- Shadowed Tooltip Path (Sharp corners + bottom arrow tip) -->
+                    <path 
+                      :d="getTooltipPath(machine)"
+                      :fill="CONFIG.tooltipBgColor || '#090d16'"
+                      :stroke="getTooltipStroke(machine)"
+                      stroke-width="1.8"
+                      opacity="0.96"
+                    />
+                    <!-- Tooltip Text centered inside the box using original font stack -->
+                    <text 
+                      :x="getMachineX(machine) + CONFIG.machineWidth/2"
+                      :y="getMachineY(machine) - CONFIG.tooltipOffsetY + 2"
+                      text-anchor="middle"
+                      dominant-baseline="central"
+                      :fill="CONFIG.tooltipTextColor || '#ffffff'"
+                      font-size="10.5"
+                      font-weight="800"
+                      :font-family="CONFIG.fontFamily"
+                    >{{ machine.machine_name }}</text>
+                  </g>
                 </g>
               </g>
             </svg>
-
+            
             <!-- Glassmorphic Zoom Controls HUD -->
             <div class="absolute bottom-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/75 dark:bg-slate-900/75 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 shadow-md z-10 select-none">
               <button @click="zoomOut" class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-350 transition-colors flex items-center justify-center" title="Zoom Out">
@@ -313,6 +401,101 @@ import { useNavigationHistoryStore } from '../stores/navigationHistoryStore';
 
 // MAIN ISOMETRIC CONFIGURATION
 import { CONFIG } from './ManagerialOverviewConfig';
+
+// ── 3D Isometric Platform Geometry & Color Helpers ──
+const rx = 70;
+const ry = 35;
+const h = 3.5;
+const anchorY = CONFIG.machineHeight * (1 - CONFIG.machineAnchorYPercent);
+
+const getPlatformColors = (state) => {
+  const mapping = {
+    'OK': {
+      top: '#f8fafc',
+      sideLeft: '#cbd5e1',
+      sideRight: '#e2e8f0',
+      stroke: '#cbd5e1',
+      glow: 'transparent',
+      hasGlow: false
+    },
+    'WARNING': {
+      top: '#f59e0b',
+      sideLeft: '#b45309',
+      sideRight: '#d97706',
+      stroke: '#fbbf24',
+      glow: 'rgba(245, 158, 11, 0.35)',
+      hasGlow: true
+    },
+    'CRITICAL': {
+      top: '#ef4444',
+      sideLeft: '#991b1b',
+      sideRight: '#b91c1c',
+      stroke: '#f87171',
+      glow: 'rgba(239, 68, 68, 0.5)',
+      hasGlow: true
+    },
+    'DISCONNECTED': {
+      top: '#94a3b8',
+      sideLeft: '#475569',
+      sideRight: '#64748b',
+      stroke: '#cbd5e1',
+      glow: 'rgba(148, 163, 184, 0.2)',
+      hasGlow: true
+    }
+  };
+  return mapping[state] || mapping['OK'];
+};
+
+const getBeaconColors = (state) => {
+  const mapping = {
+    'WARNING': {
+      top: '#fbbf24', // bright amber
+      left: '#d97706', // darker amber
+      right: '#f59e0b', // main amber
+      glow: '#f59e0b'
+    },
+    'CRITICAL': {
+      top: '#f87171', // bright red
+      left: '#b91c1c', // darker red
+      right: '#ef4444', // main red
+      glow: '#ef4444'
+    },
+    'DISCONNECTED': {
+      top: '#cbd5e1', // bright grey
+      left: '#64748b', // darker grey
+      right: '#94a3b8', // main grey
+      glow: '#94a3b8'
+    },
+    'OK': {
+      top: '#34d399',
+      left: '#059669',
+      right: '#10b981',
+      glow: '#10b981'
+    }
+  };
+  return mapping[state] || mapping['OK'];
+};
+
+const getMachineFilter = (state) => {
+  if (state === 'WARNING') {
+    return 'sepia(0.25) saturate(1.4) hue-rotate(0deg) brightness(1.02)';
+  } else if (state === 'CRITICAL') {
+    return 'sepia(0.35) saturate(1.8) hue-rotate(320deg) brightness(0.94)';
+  } else if (state === 'DISCONNECTED') {
+    return 'grayscale(0.85) contrast(0.80) saturate(0.1)';
+  }
+  return 'none';
+};
+
+const getStatusColor = (state) => {
+  const mapping = {
+    'WARNING': '#f59e0b',
+    'CRITICAL': '#ef4444',
+    'DISCONNECTED': '#94a3b8',
+    'OK': '#10b981'
+  };
+  return mapping[state] || '#10b981';
+};
 
 // ── Load Google Font dynamically from config ──
 onBeforeMount(() => {
@@ -525,6 +708,62 @@ const placedMachines = computed(() => {
 
 const sortedPlacedMachines = computed(() => [...placedMachines.value].sort((a, b) => (a.gridU + a.gridV) - (b.gridU + b.gridV)));
 
+const lineLabels = computed(() => {
+  const labels = [];
+  const spacing = CONFIG.machineSpacing || 1.0;
+  const lineGap = CONFIG.lineGap !== undefined ? CONFIG.lineGap : 1;
+  const perRow = CONFIG.machinesPerRow || 10;
+  const settings = CONFIG.lineLabelSettings || {};
+  const lineSettings = settings.lines || {};
+  let currentU = 0;
+
+  uiLinesData.value.forEach(line => {
+    const machines = line.machines || [];
+    if (machines.length === 0) return;
+    const rows = Math.ceil(machines.length / perRow) || 1;
+
+    const nameKey = line.name.toUpperCase();
+    const configForLine = lineSettings[nameKey] || {};
+
+    // Center of the U span
+    let uCenter = currentU + (rows * spacing) / 2;
+    // Place right above the boundary line (v = 0)
+    let vCenter = -0.22;
+
+    // Apply manual overrides
+    const uOffset = configForLine.uOffset !== undefined ? configForLine.uOffset : 0.0;
+    const vOffset = configForLine.vOffset !== undefined ? configForLine.vOffset : 0.0;
+    uCenter += uOffset;
+    vCenter += vOffset;
+
+    const boxVisible = configForLine.box !== undefined ? configForLine.box : (settings.box !== undefined ? settings.box : true);
+    const boxWidthVal = configForLine.width !== undefined ? configForLine.width : (settings.width !== undefined ? settings.width : (configForLine.boxWidth !== undefined ? configForLine.boxWidth : (settings.boxWidth !== undefined ? settings.boxWidth : 1.3)));
+    const boxHeightVal = configForLine.height !== undefined ? configForLine.height : (settings.height !== undefined ? settings.height : (configForLine.boxHeight !== undefined ? configForLine.boxHeight : (settings.boxHeight !== undefined ? settings.boxHeight : 0.44)));
+    const textPaddingVal = configForLine.textPadding !== undefined ? configForLine.textPadding : (settings.textPadding !== undefined ? settings.textPadding : 0.08);
+
+    labels.push({
+      name: configForLine.text || line.name.toUpperCase(),
+      u: uCenter,
+      v: vCenter,
+      textColor: configForLine.textColor || settings.textColor || '#ffffff',
+      bgColor: configForLine.bgColor || settings.bgColor || '#000000',
+      borderColor: configForLine.borderColor || settings.borderColor || '#ffffff',
+      fontSize: settings.fontSize || 14.5,
+      fontWeight: settings.fontWeight || '900',
+      letterSpacing: settings.letterSpacing || '1.5px',
+      borderWidth: settings.borderWidth || 2,
+      box: boxVisible,
+      halfWidth: boxWidthVal / 2,
+      halfHeight: boxHeightVal / 2,
+      textPadding: textPaddingVal
+    });
+
+    currentU += (rows - 1) * spacing + 1 + lineGap;
+  });
+  return labels;
+});
+
+
 // ── Position helpers ──
 const getMachineX = (machine) => {
   const uOff = CONFIG.machineGridUOffset ?? 0.5, vOff = CONFIG.machineGridVOffset ?? 0.5;
@@ -539,51 +778,69 @@ const getMachineY = (machine) => {
 };
 
 // ── Tooltip helpers ──
-const getTooltipWidth = (text) => (text || '').length * 4.2 + 4;
+const getTooltipWidth = (text) => {
+  // Balanced dimensions for 'Manrope' to prevent touching the side borders
+  const charWidth = 7.0;
+  const paddingX = 24; // Premium horizontal padding
+  return Math.max(56, (text || '').length * charWidth + paddingX);
+};
 
 const shouldShowTooltip = (machine) => {
+  if (isLoading.value) return false;
   if (machine.machine_state === 'WARNING' || machine.machine_state === 'CRITICAL') return true;
   return hoveredMachine.value === machine.machine_name;
 };
 
 const getTooltipPath = (machine) => {
   const name = machine.machine_name;
-  const w = getTooltipWidth(name) + CONFIG.tooltipPaddingX * 2;
-  const h = 14;
-  const arrow = CONFIG.tooltipArrowSize || 4;
+  const w = getTooltipWidth(name);
+  const h = 26; // Generous vertical padding for the standard font to prevent touching borders
+  const arrow = CONFIG.tooltipArrowSize || 5;
+  const r = CONFIG.tooltipCornerRadius !== undefined ? CONFIG.tooltipCornerRadius : 0;
   const cx = getMachineX(machine) + CONFIG.machineWidth / 2;
-  const top = getMachineY(machine) - CONFIG.tooltipOffsetY;
+  const top = getMachineY(machine) - CONFIG.tooltipOffsetY - 11; // Perfectly centered relative to text (top + h/2 = +2 offset)
+  const bottom = top + h;
   const left = cx - w / 2;
-  const r = 3; // border radius
-  // Rounded rect + bottom center triangle
-  return `M${left + r},${top} 
-          L${left + w - r},${top} Q${left + w},${top} ${left + w},${top + r} 
-          L${left + w},${top + h - r} Q${left + w},${top + h} ${left + w - r},${top + h} 
-          L${cx + arrow},${top + h} L${cx},${top + h + arrow} L${cx - arrow},${top + h} 
-          L${left + r},${top + h} Q${left},${top + h} ${left},${top + h - r} 
-          L${left},${top + r} Q${left},${top} ${left + r},${top} Z`;
+  const right = cx + w / 2;
+
+  if (r <= 0) {
+    return `M ${left} ${top} L ${right} ${top} L ${right} ${bottom} L ${cx + arrow} ${bottom} L ${cx} ${bottom + arrow} L ${cx - arrow} ${bottom} L ${left} ${bottom} Z`;
+  } else {
+    return `M ${left + r} ${top} L ${right - r} ${top} Q ${right} ${top} ${right} ${top + r} L ${right} ${bottom - r} Q ${right} ${bottom} ${right - r} ${bottom} L ${cx + arrow} ${bottom} L ${cx} ${bottom + arrow} L ${cx - arrow} ${bottom} L ${left + r} ${bottom} Q ${left} ${bottom} ${left} ${bottom - r} L ${left} ${top + r} Q ${left} ${top} ${left + r} ${top} Z`;
+  }
 };
 
 const getTooltipBg = (machine) => {
-  const state = machine.machine_state;
-  if (state === 'CRITICAL' || state === 'WARNING') return CONFIG.statusColors[state]?.bg || '#fef2f2';
-  return 'rgba(15, 23, 42, 0.88)';
+  return 'rgba(15, 23, 42, 0.96)';
 };
 const getTooltipStroke = (machine) => {
   const state = machine.machine_state;
-  if (state === 'CRITICAL' || state === 'WARNING') return CONFIG.statusColors[state]?.border || '#fecaca';
-  return 'rgba(51, 65, 85, 0.5)';
+  if (state === 'CRITICAL') return '#ef4444';
+  if (state === 'WARNING') return '#f59e0b';
+  if (state === 'DISCONNECTED') return '#94a3b8';
+  return 'rgba(148, 163, 184, 0.3)';
 };
 const getTooltipTextColor = (machine) => {
   const state = machine.machine_state;
-  if (state === 'CRITICAL' || state === 'WARNING') return CONFIG.statusColors[state]?.text || '#dc2626';
-  return '#e2e8f0';
+  if (state === 'CRITICAL') return '#ff6b6b';
+  if (state === 'WARNING') return '#fbbf24';
+  if (state === 'DISCONNECTED') return '#94a3b8';
+  return '#ffffff';
 };
 
 // ── Line helpers ──
 const focusLine = (lineName) => {
   activeLine.value = activeLine.value === lineName ? null : lineName;
 };
+
+function getLineAccentClass(name) {
+  const mapping = {
+    'BLOCK': 'border-l-4 border-sky-500 dark:border-sky-400 bg-sky-50/20 dark:bg-sky-950/5',
+    'CRANK': 'border-l-4 border-indigo-500 dark:border-indigo-400 bg-indigo-50/20 dark:bg-indigo-950/5',
+    'HEAD': 'border-l-4 border-violet-500 dark:border-violet-400 bg-violet-50/20 dark:bg-violet-950/5'
+  };
+  return mapping[name.toUpperCase()] || 'border-l-4 border-slate-450 bg-slate-50/25';
+}
 
 function getLineAlertMachines(line) {
   const machines = line.machines || [];
@@ -665,6 +922,14 @@ onMounted(async () => {
 .mo-screen,
 .mo-screen * {
   font-family: v-bind('CONFIG.fontFamily') !important;
+}
+
+@keyframes pulse-shimmer {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.85; }
+}
+.loading-machine {
+  animation: pulse-shimmer 1.8s ease-in-out infinite;
 }
 
 /* Scrollbar styling */
