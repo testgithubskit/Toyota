@@ -8,7 +8,7 @@ const getBaseUrl = () => {
     } */
 
       if (isDevelopment) {
-      return 'http://172.18.100.87:8000/api/v1';
+      return 'http://localhost:6699/api/v1';
     }
     
     // In production, use the full HTTPS URL

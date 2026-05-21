@@ -15,7 +15,9 @@ This script requires the following modules be installed in the python environmen
 import logging
 
 # Related third party imports
+# pyrefly: ignore [missing-import]
 from fastapi import FastAPI
+# pyrefly: ignore [missing-import]
 from fastapi.middleware.cors import CORSMiddleware
 
 # Local application/library specific imports
@@ -31,8 +33,12 @@ LOGGER = logging.getLogger(__name__)
 
 APP = FastAPI()
 
-ALLOWED_ORIGINS = ["*"]
-#ALLOWED_ORIGINS = ["http://localhost:8080", "http://172.18.20.27:8080", "http://172.18.20.27"]
+ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:8080",
+    "http://172.18.20.27:8080",
+    "http://172.18.20.27"
+]
 
 APP.add_middleware(
     CORSMiddleware,
