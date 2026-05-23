@@ -710,6 +710,8 @@ class new_Parameter(BaseModel):
     parameter_state: str
     warning_limit: Optional[float]
     critical_limit: Optional[float]
+    parameter_group: Optional[str] = None
+    parameter_type: Optional[str] = None
 
 class new_MachineCount(BaseModel):
     OK: int

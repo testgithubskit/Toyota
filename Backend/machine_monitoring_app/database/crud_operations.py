@@ -6016,7 +6016,8 @@ def get_real_time_parameters_data_mtlinki_new_layout():
          rtpa.value,
          mp.warning_limit,
          mp.critical_limit,
-         rtpa.parameter_condition.name)
+         rtpa.parameter_condition.name,
+         pg.parameter_type)
 
         for rtpa in RealTimeParameterActive
         for mp in MachineParameter
@@ -6030,12 +6031,12 @@ def get_real_time_parameters_data_mtlinki_new_layout():
         )
     ).order_by(lambda _group_name, machine_location, _machine_name,
                       parameter_name, display_name, internal_parameter_name, timestamp, value, warn_limit,
-                      _critical_limit, condition_name: (_group_name, machine_location, _machine_name, parameter_name))
+                      _critical_limit, condition_name, _param_type: (_group_name, machine_location, _machine_name, parameter_name))
 
     # Convert the result to a pandas DataFrame
     columns = ['group_name', 'location', 'machine_name', 'parameter_name',
                'display_name', 'internal_parameter_name', 'time', 'value', 'warn_limit',
-               'critical_limit', 'condition_name']
+               'critical_limit', 'condition_name', 'parameter_type']
     result_df = pd.DataFrame(result, columns=columns)
     result_df = result_df.sort_values(by='machine_name', key=lambda col: col.map(alphanumeric_key))
 
@@ -6069,7 +6070,9 @@ def get_real_time_parameters_data_mtlinki_new_layout():
                     'parameter_value': parameter_value,
                     'parameter_state': row['condition_name'],
                     'warning_limit': warning_limit,
-                    'critical_limit': critical_limit
+                    'critical_limit': critical_limit,
+                    'parameter_group': row['group_name'],
+                    'parameter_type': row['parameter_type'] if not pd.isna(row['parameter_type']) else None
                 }
 
                 machine_json['parameters'].append(parameter_json)
